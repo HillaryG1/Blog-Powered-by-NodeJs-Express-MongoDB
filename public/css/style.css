@@ -21,6 +21,11 @@ body {
   margin: 0;
 }
 
+a {color: var(--black);}
+h1 { font-size: var(--font-size-xl);}
+h2 { font-size: var(--font-size-lg);}h3 { font-size: var(--font-size-md);}
+
+
 input[type="text"],
 input[type="email"],
 input[type="password"],
@@ -147,4 +152,58 @@ img {
   gap: 1rem;
   font-weight: 600;
   padding: 0;
+}
+
+.header-nav ul a {
+  padding: 10px;
+  text-decoration: none;
+}
+
+.header-nav ul a:hover {
+  text-decoration: underline;
+}
+
+
+.header-nav ul a.active {
+  color: var(--gray);
+}
+
+/* Author - HomePage */
+.author {
+  padding: 10px 0;
+  text-align: center;
+}
+
+.author-heading {
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+.author-body {
+  font-size: var(--font-size-md);
+  margin: 5px 0 40px 0;
+}
+
+
+/* Home Article List */
+.article-heading {
+  margin-top: 4rem;
+  font-weight: 400;
+}
+
+.article-ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  font-size: clamp(1.13rem, cal(1.08rem + 0.22vw), 1.25rem);
+  display: flex;
+  flex-direction: column;
+}
+
+.article-list-date {
+  font-size: var(--font-size-base);
+  color: var(--gray);
+  width: 260px;
+  display: inline-block;
+
 }
