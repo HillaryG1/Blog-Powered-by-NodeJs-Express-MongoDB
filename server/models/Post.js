@@ -1,13 +1,13 @@
-//const mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 const PostSchema = new Schema({
 title: {
-  type: string,
+  type: String,
   required: true
 },
 body: {
-  type: string,
+  type: String,
   required: true
 },
 createdAt: {
@@ -20,4 +20,4 @@ updatedAt: {
 }
 });
 
-// module.exports = mongoose.model('Post', PostSchema);
+module.exports = mongoose.model('Post', PostSchema);
