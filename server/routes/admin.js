@@ -6,7 +6,31 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const adminLayout = '../views/layouts/admin';
+const jwtSecret = process.env.JWT_SECRET;
 
+
+
+
+
+//Check Login
+const authMiddleware = (req, res, next) => {
+  const token = req.cookies.token;
+
+  if(!token) {
+    return res.status(401).json( { message: 'Unauthorized' } );
+  }
+
+  try {
+    const decoded = jwt.verify(token, jwtSecret);
+    req.userId = decoded.userId;
+    next();
+  } catch(error) {
+    res.status(401).json( { message: 'Unauthorized' } );
+  }
+
+
+
+}
 
 
 //Get Admin - Login Page
@@ -27,7 +51,7 @@ router.get('/admin', async (req, res) => {
 
 
 
-//POST / Admin - Check Login
+  //POST / Admin - Check Login
 router.post('/admin', async (req, res) => {
   try {
   const { username, password} = req.body;
@@ -38,20 +62,54 @@ router.post('/admin', async (req, res) => {
       return res.status(401).json({ message: 'Invalid credentials'});
     }
 
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+
+    if(!isPasswordValid) {
+      return res.status(401).json({ message: 'Invalid credentials'});
+    }
+    
 
 
+
+    const token = jwt.sign({ userId: user._id}, jwtSecret);
+    res.cookie('token', token, { httpOnly: true });
+    res.redirect('/dashboard');
 
     } catch (error) {
       console.log(error);
     }
   });
 
+   
+  
+  
+  
+  //GET / Admin - Dashboard
+router.get('/dashboard', authMiddleware, async (req, res) => {
+try {
+  const locals = {
+    title: 'Dashboard',
+    description: 'Blog powered by Nodejs, Express & MongoDB.'
+  }
+
+  const data = await Post.find();
+  res.render('admin/dashboard', {
+    locals,
+    data 
+  });
+
+  
+} catch (error) {
+
+}
 
 
 
 
 
 
+
+});
 
 //POST / Admin - Register
 router.post('/register', async (req, res) => {
