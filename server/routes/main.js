@@ -30,7 +30,8 @@ try {
     locals, 
     data,
     current: page,
-    nextPage: hasNextPage ? nextPage : null
+    nextPage: hasNextPage ? nextPage : null,
+    currentRoute: '/'
   }); 
 
 } catch (error) {
@@ -67,10 +68,11 @@ router.get('/post/:id', async (req, res) => {
 
     const locals = {
       title: data.title,
-      description: "Blog powered by NodeJs, Express & MongoDB."
+      description: "Blog powered by NodeJs, Express & MongoDB.",
+      currentRoute: `/post/${slug}`
     }
 
-res.render('post', { locals, data});
+res.render('post', { locals, data, currentRoute});
 } catch (error) {
   console.log(error);
 }
@@ -121,11 +123,15 @@ router.post('/search', async (req, res) => {
 
 
 router.get('/about',(req, res) => {
-  res.render('about'); 
+  res.render('about', {
+    currentRoute: '/about'
+  }); 
 }); 
 
 router.get('/contact',(req, res) => {
-  res.render('contact'); 
+  res.render('contact', {
+    currentRoute: '/about'
+  }); 
 }); 
 
 
