@@ -10,7 +10,7 @@ const MongoStore = require('connect-mongo');
 const connectDB = require('./server/config/db');
 const {isActiveRoute} = require('./server/helpers/routeHelpers');
 const app = express();
-const PORT = 3000 || process.env.PORT;
+const PORT = 5501 || process.env.PORT;
 
 //connect to DB
 connectDB();

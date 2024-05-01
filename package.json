@@ -4,10 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "npm install",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "app.js",
-    "dev": "nodemon app.js",
-    "build": "npm run build"
+    "dev": "nodemon app.js"
+    
   },
   "keywords": [],
   "author": "",
